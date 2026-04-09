@@ -1,0 +1,1351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sprazy App – All Screens Mockup</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #f0f4f0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    padding: 40px 20px;
+  }
+
+  /* ── Layout ── */
+  h1 { text-align: center; color: #2E8A57; font-size: 28px; margin-bottom: 8px; }
+  .subtitle { text-align: center; color: #666; font-size: 14px; margin-bottom: 40px; }
+  .screen-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px;
+    justify-content: center;
+    margin-bottom: 48px;
+  }
+  .screen-group h2 {
+    text-align: center;
+    font-size: 13px;
+    font-weight: 700;
+    color: #2E8A57;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+  }
+
+  /* ── Phone frame ── */
+  .phone {
+    width: 375px;
+    height: 812px;
+    background: #fff;
+    border-radius: 40px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.18);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+  }
+  .status-bar {
+    background: #fff;
+    padding: 14px 24px 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    font-weight: 600;
+    color: #1A1A1A;
+    flex-shrink: 0;
+  }
+  .status-right { display: flex; gap: 6px; align-items: center; font-size: 11px; }
+  .screen-content { flex: 1; overflow: hidden; display: flex; flex-direction: column; }
+  .scroll-area { flex: 1; overflow-y: auto; }
+  .scroll-area::-webkit-scrollbar { display: none; }
+
+  /* ── Bottom Nav ── */
+  .bottom-nav {
+    display: flex;
+    background: #fff;
+    border-top: 1.5px solid #F0F0F0;
+    padding: 8px 0 20px;
+    flex-shrink: 0;
+  }
+  .nav-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    cursor: pointer;
+  }
+  .nav-item .nav-icon { font-size: 22px; }
+  .nav-item .nav-label { font-size: 10px; font-weight: 600; color: #9E9E9E; }
+  .nav-item.active .nav-label { color: #3DAA6D; }
+  .nav-item.active .nav-icon { filter: none; }
+
+  /* ── Colors / Tokens ── */
+  :root {
+    --primary: #3DAA6D;
+    --primary-light: #E8F5EE;
+    --primary-dark: #2E8A57;
+    --text: #1A1A1A;
+    --text-sub: #9E9E9E;
+    --border: #F0F0F0;
+    --input-bg: #F5F5F5;
+    --error: #E53935;
+  }
+
+  /* ── Common ── */
+  .section-label {
+    font-size: 10px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.6px; color: var(--primary-dark);
+    padding: 8px 16px 4px;
+  }
+  .avatar {
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; color: #fff; flex-shrink: 0;
+  }
+
+  /* ════════════════════════════════════════════
+     SCREEN 1 — HOME
+  ════════════════════════════════════════════ */
+  .home-topbar {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 8px 20px 6px; background: #fff;
+  }
+  .home-logo-row { display: flex; align-items: center; gap: 6px; }
+  .home-logo {
+    width: 28px; height: 28px; background: var(--primary);
+    border-radius: 8px; display: flex; align-items: center; justify-content: center;
+    font-size: 16px; color: #fff; font-weight: 900;
+  }
+  .home-stats { display: flex; gap: 14px; align-items: center; }
+  .stat-item { display: flex; align-items: center; gap: 4px; font-size: 14px; font-weight: 600; }
+
+  .level-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 4px 20px 8px; background: #fff;
+  }
+  .level-btn { display: flex; align-items: center; gap: 6px; font-size: 16px; font-weight: 600; }
+
+  .progress-card {
+    margin: 4px 20px 12px;
+    background: var(--primary-light);
+    border: 1px solid var(--primary);
+    border-radius: 14px;
+    padding: 14px;
+  }
+  .progress-card-top {
+    display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;
+  }
+  .progress-card-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--primary-dark); }
+  .progress-pct { font-size: 13px; font-weight: 700; color: var(--primary); }
+  .progress-bar-bg { height: 8px; border-radius: 6px; background: #c8edda; overflow: hidden; margin-bottom: 6px; }
+  .progress-bar-fill { height: 100%; border-radius: 6px; background: var(--primary); }
+  .progress-sub { font-size: 11px; font-weight: 500; color: var(--primary-dark); }
+
+  .premium-banner {
+    margin: 0 20px 14px;
+    padding: 14px;
+    border-radius: 14px;
+    border: 1.5px dashed var(--primary);
+    background: var(--primary-light);
+    text-align: center;
+  }
+  .premium-banner .p1 { font-size: 15px; font-weight: 700; color: var(--primary); }
+  .premium-banner .p2 { font-size: 13px; color: var(--primary); margin-top: 2px; }
+
+  .chapter-card {
+    display: flex; align-items: center; gap: 12px;
+    margin: 0 20px 10px;
+    padding: 14px;
+    border-radius: 16px;
+    background: #fff;
+    border: 1px solid var(--border);
+  }
+  .chapter-card.active { border-color: var(--primary); border-width: 1.5px; }
+  .chapter-card.locked { opacity: 0.55; }
+  .chapter-icon {
+    width: 46px; height: 46px; border-radius: 13px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; flex-shrink: 0;
+  }
+  .chapter-info { flex: 1; min-width: 0; }
+  .chapter-num { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--primary); margin-bottom: 1px; }
+  .chapter-title { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .chapter-meta { display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 500; color: var(--text-sub); }
+  .meta-dot { width: 3px; height: 3px; border-radius: 2px; background: var(--border); }
+  .chapter-right { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+  .status-badge {
+    padding: 3px 8px; border-radius: 7px;
+    font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.4px;
+  }
+  .badge-done { background: var(--primary-light); color: var(--primary-dark); }
+  .badge-active { background: var(--primary); color: #fff; }
+  .badge-locked { background: var(--input-bg); color: var(--text-sub); }
+  .progress-ring {
+    width: 32px; height: 32px; border-radius: 50%; border: 2px solid var(--primary);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 9px; font-weight: 700; color: var(--primary);
+  }
+  .progress-ring.done { background: var(--primary); color: #fff; font-size: 13px; }
+
+  /* ════════════════════════════════════════════
+     SCREEN 2 — PROFICIENCY / EXPLORE COURSES
+  ════════════════════════════════════════════ */
+  .exp-header {
+    padding: 12px 16px 10px; background: #fff;
+    border-bottom: 1.5px solid var(--border);
+  }
+  .exp-header-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+  .exp-title { font-size: 20px; font-weight: 800; color: var(--text); }
+  .notif-btn { width: 36px; height: 36px; border-radius: 11px; background: #edfaf2; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+  .search-bar {
+    display: flex; align-items: center; gap: 8px;
+    background: var(--primary-light); border: 1.5px solid #c8edda;
+    border-radius: 12px; padding: 8px 12px;
+  }
+  .search-input {
+    flex: 1; border: none; background: transparent; outline: none;
+    font-size: 13px; font-weight: 500; color: var(--text);
+  }
+  .search-input::placeholder { color: #a0c8b0; }
+
+  .featured-card {
+    margin: 14px 16px 0;
+    border-radius: 18px;
+    background: linear-gradient(135deg, #2E8A57 0%, #3DAA6D 60%, #4ecb82 100%);
+    padding: 18px;
+    color: #fff;
+  }
+  .featured-badge {
+    display: inline-block; background: rgba(255,255,255,0.2);
+    border-radius: 8px; padding: 3px 10px;
+    font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px;
+    margin-bottom: 10px;
+  }
+  .featured-icon-row { display: flex; align-items: flex-start; justify-content: space-between; }
+  .featured-icon { font-size: 42px; }
+  .featured-info { flex: 1; margin-left: 14px; }
+  .featured-title { font-size: 17px; font-weight: 800; margin-bottom: 4px; }
+  .featured-desc { font-size: 12px; opacity: 0.85; line-height: 1.4; margin-bottom: 10px; }
+  .featured-meta { display: flex; gap: 10px; font-size: 11px; opacity: 0.9; margin-bottom: 12px; }
+  .featured-btn {
+    background: #fff; color: var(--primary-dark);
+    border-radius: 12px; padding: 9px 18px;
+    font-size: 13px; font-weight: 700; display: inline-block;
+  }
+
+  .category-grid {
+    padding: 14px 16px 0;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+  }
+  .cat-card {
+    background: #fff; border: 1.5px solid var(--border);
+    border-radius: 14px; padding: 14px 12px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .cat-icon-box {
+    width: 40px; height: 40px; border-radius: 11px;
+    background: var(--primary-light);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; flex-shrink: 0;
+  }
+  .cat-info { min-width: 0; }
+  .cat-title { font-size: 13px; font-weight: 700; color: var(--text); }
+  .cat-count { font-size: 10px; color: var(--text-sub); margin-top: 1px; }
+
+  .pop-card {
+    display: flex; align-items: center; gap: 12px;
+    padding: 11px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .pop-icon { width: 46px; height: 46px; border-radius: 13px; background: var(--primary-light); display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
+  .pop-info { flex: 1; }
+  .pop-title { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+  .pop-meta { font-size: 11px; color: var(--primary); font-weight: 500; }
+  .pop-badge { padding: 3px 9px; border-radius: 8px; font-size: 10px; font-weight: 700; }
+  .badge-free { background: var(--primary-light); color: var(--primary-dark); }
+  .badge-pro { background: #fff3cd; color: #856404; }
+
+  /* ════════════════════════════════════════════
+     SCREEN 3 — CHAT LIST
+  ════════════════════════════════════════════ */
+  .chat-header {
+    padding: 14px 16px 10px; background: #fff;
+    border-bottom: 1.5px solid var(--border);
+  }
+  .chat-header-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+  .chat-title { font-size: 20px; font-weight: 800; }
+  .header-actions { display: flex; gap: 8px; }
+  .header-btn {
+    width: 36px; height: 36px; border-radius: 11px;
+    background: var(--primary-light);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; position: relative;
+  }
+  .notif-dot {
+    position: absolute; top: -2px; right: -2px;
+    width: 16px; height: 16px; border-radius: 8px;
+    background: #e11d48; color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 9px; font-weight: 800;
+  }
+
+  .online-strip { padding: 14px 16px 10px; }
+  .strip-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; color: var(--primary-dark); margin-bottom: 10px; }
+  .online-row { display: flex; gap: 14px; overflow: hidden; }
+  .online-item { display: flex; flex-direction: column; align-items: center; gap: 5px; }
+  .online-name { font-size: 10px; font-weight: 600; color: var(--primary-dark); max-width: 46px; text-align: center; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .online-dot { position: absolute; bottom: 2px; right: 2px; width: 12px; height: 12px; border-radius: 6px; background: #22c55e; border: 2px solid #fff; }
+  .online-add {
+    width: 46px; height: 46px; border-radius: 23px;
+    background: var(--primary-light); border: 2px dashed #b5e8ca;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; color: #5a9e75;
+  }
+
+  .chat-item {
+    display: flex; align-items: center; gap: 12px;
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .chat-item.unread { background: #f7fef9; }
+  .chat-info { flex: 1; min-width: 0; }
+  .chat-name { font-size: 13.5px; font-weight: 700; color: var(--text); margin-bottom: 3px; }
+  .chat-preview { font-size: 12px; font-weight: 500; color: var(--text-sub); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .chat-preview.unread-preview { color: var(--primary-dark); font-weight: 700; }
+  .chat-right { display: flex; flex-direction: column; align-items: flex-end; gap: 5px; flex-shrink: 0; }
+  .chat-time { font-size: 10.5px; font-weight: 500; color: var(--text-sub); }
+  .unread-badge {
+    width: 20px; height: 20px; border-radius: 10px;
+    background: var(--primary);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10.5px; font-weight: 700; color: #fff;
+  }
+
+  /* ════════════════════════════════════════════
+     SCREEN 4 — CONVERSATION
+  ════════════════════════════════════════════ */
+  .conv-header {
+    padding: 12px 16px; background: #fff;
+    border-bottom: 1.5px solid var(--border);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .conv-back { font-size: 22px; color: var(--text); }
+  .conv-header-info { flex: 1; }
+  .conv-header-name { font-size: 16px; font-weight: 700; color: var(--text); }
+  .conv-header-sub { font-size: 12px; color: #22c55e; font-weight: 500; }
+  .conv-actions { display: flex; gap: 10px; font-size: 20px; }
+
+  .messages-area { flex: 1; overflow-y: auto; padding: 12px 16px; background: #f8fef9; }
+  .date-sep { text-align: center; font-size: 11px; color: var(--text-sub); margin: 10px 0; font-weight: 500; }
+  .msg-row { display: flex; margin-bottom: 8px; }
+  .msg-row.me { justify-content: flex-end; }
+  .msg-row.them { justify-content: flex-start; }
+  .bubble {
+    max-width: 70%; padding: 9px 13px;
+    border-radius: 16px; font-size: 14px; line-height: 1.4;
+  }
+  .bubble.me { background: var(--primary); color: #fff; border-bottom-right-radius: 4px; }
+  .bubble.them { background: #fff; color: var(--text); border-bottom-left-radius: 4px; box-shadow: 0 1px 4px rgba(0,0,0,0.07); }
+  .bubble-time { font-size: 10px; opacity: 0.7; margin-top: 4px; text-align: right; }
+
+  .msg-input-bar {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 16px 24px; background: #fff;
+    border-top: 1.5px solid var(--border);
+  }
+  .msg-input {
+    flex: 1; background: var(--input-bg); border: none; outline: none;
+    border-radius: 22px; padding: 10px 16px;
+    font-size: 14px; color: var(--text);
+  }
+  .msg-send-btn {
+    width: 42px; height: 42px; border-radius: 21px;
+    background: var(--primary);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+  }
+
+  /* ════════════════════════════════════════════
+     SCREEN 5 — COURSE DETAIL
+  ════════════════════════════════════════════ */
+  .course-hero {
+    background: linear-gradient(160deg, #2E8A57 0%, #3DAA6D 100%);
+    padding: 48px 20px 24px;
+    color: #fff;
+  }
+  .course-hero-back { font-size: 22px; margin-bottom: 16px; opacity: 0.9; }
+  .course-hero-icon { font-size: 52px; margin-bottom: 12px; }
+  .course-hero-cat { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; opacity: 0.8; margin-bottom: 6px; }
+  .course-hero-title { font-size: 22px; font-weight: 800; margin-bottom: 6px; }
+  .course-hero-desc { font-size: 13px; opacity: 0.85; line-height: 1.4; margin-bottom: 14px; }
+  .course-stats { display: flex; gap: 16px; }
+  .course-stat { display: flex; align-items: center; gap: 5px; font-size: 12px; opacity: 0.9; }
+
+  .lesson-item {
+    display: flex; align-items: center; gap: 12px;
+    padding: 14px 16px; border-bottom: 1px solid var(--border);
+  }
+  .lesson-num {
+    width: 32px; height: 32px; border-radius: 16px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 700; flex-shrink: 0;
+  }
+  .lesson-num.done { background: var(--primary); color: #fff; }
+  .lesson-num.active { background: var(--primary-light); color: var(--primary-dark); border: 2px solid var(--primary); }
+  .lesson-num.locked { background: var(--input-bg); color: var(--text-sub); }
+  .lesson-info { flex: 1; }
+  .lesson-title { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+  .lesson-meta { font-size: 11px; color: var(--text-sub); }
+  .lesson-right { font-size: 18px; }
+
+  .continue-btn {
+    margin: 16px; background: var(--primary);
+    border-radius: 16px; padding: 15px;
+    text-align: center; color: #fff;
+    font-size: 15px; font-weight: 700;
+  }
+
+  /* ════════════════════════════════════════════
+     SCREEN 6 — PROFILE
+  ════════════════════════════════════════════ */
+  .profile-container {
+    display: flex; flex-direction: column; align-items: center;
+    padding: 48px 24px 24px;
+  }
+  .profile-avatar {
+    width: 80px; height: 80px; border-radius: 40px;
+    background: var(--primary-light);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 34px; font-weight: 700; color: var(--primary);
+    margin-bottom: 12px;
+  }
+  .profile-username { font-size: 22px; font-weight: 700; margin-bottom: 4px; color: var(--text); }
+  .profile-email { font-size: 14px; color: var(--text-sub); margin-bottom: 24px; }
+  .stats-row {
+    width: 100%; display: flex; justify-content: space-around;
+    background: var(--input-bg); border-radius: 16px;
+    padding: 16px; margin-bottom: 24px;
+  }
+  .stat-block { display: flex; flex-direction: column; align-items: center; }
+  .stat-num { font-size: 22px; font-weight: 700; color: var(--text); }
+  .stat-lbl { font-size: 12px; margin-top: 2px; color: var(--text-sub); }
+  .stat-divider { width: 1px; background: var(--border); }
+
+  .info-section { width: 100%; margin-bottom: 32px; }
+  .info-row {
+    display: flex; justify-content: space-between;
+    padding: 14px 0; border-bottom: 1px solid var(--border);
+  }
+  .info-label { font-size: 15px; color: var(--text-sub); }
+  .info-value { font-size: 15px; font-weight: 500; color: var(--text); }
+  .logout-btn {
+    width: 100%; padding: 14px; border-radius: 14px;
+    border: 1.5px solid var(--error); text-align: center;
+    font-size: 16px; font-weight: 600; color: var(--error);
+  }
+
+  /* ════════════════════════════════════════════
+     SCREEN 7 — ADD FRIEND
+  ════════════════════════════════════════════ */
+  .add-friend-header {
+    padding: 14px 16px 10px; background: #fff;
+    border-bottom: 1.5px solid var(--border);
+  }
+  .add-friend-title { font-size: 20px; font-weight: 800; color: var(--text); margin-bottom: 10px; }
+  .friend-result-card {
+    margin: 16px; background: #fff;
+    border: 1.5px solid var(--border);
+    border-radius: 16px; padding: 16px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .friend-result-info { flex: 1; }
+  .friend-result-name { font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+  .friend-result-user { font-size: 13px; color: var(--primary); font-weight: 500; }
+  .add-btn {
+    background: var(--primary); color: #fff;
+    border-radius: 12px; padding: 9px 16px;
+    font-size: 13px; font-weight: 700;
+  }
+  .sent-btn {
+    background: var(--primary-light); color: var(--primary-dark);
+    border-radius: 12px; padding: 9px 16px;
+    font-size: 13px; font-weight: 700;
+  }
+
+  .suggestions-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; color: var(--primary-dark); padding: 0 16px 8px; }
+  .suggestion-item {
+    display: flex; align-items: center; gap: 12px;
+    padding: 10px 16px; border-bottom: 1px solid var(--border);
+  }
+  .suggestion-info { flex: 1; }
+  .suggestion-name { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 1px; }
+  .suggestion-level { font-size: 11px; color: var(--text-sub); }
+  .follow-btn {
+    background: var(--primary-light); color: var(--primary-dark);
+    border-radius: 10px; padding: 6px 14px;
+    font-size: 12px; font-weight: 700;
+  }
+</style>
+</head>
+<body>
+
+<h1>🌿 Sprazy App – UI Mockup</h1>
+<p class="subtitle">All Screens · Pixel-accurate from source code · Import via Figma plugin "html.to.design"</p>
+
+<div class="screen-row">
+
+  <!-- ════ SCREEN 1: HOME ════ -->
+  <div class="screen-group">
+    <h2>Home</h2>
+    <div class="phone">
+      <div class="status-bar">
+        <span>9:41</span>
+        <div class="status-right">
+          <span>📶</span><span>🔋</span>
+        </div>
+      </div>
+      <div class="screen-content">
+        <!-- Top bar -->
+        <div class="home-topbar">
+          <div class="home-logo-row">
+            <div class="home-logo">S</div>
+            <span style="font-size:26px">🇬🇧</span>
+            <span style="font-size:12px;color:#1A1A1A">▼</span>
+          </div>
+          <div class="home-stats">
+            <div class="stat-item"><span>🔥</span><span>0</span></div>
+            <div class="stat-item"><span>⭐</span><span>0/20</span></div>
+            <span style="font-size:20px">🔔</span>
+          </div>
+        </div>
+        <!-- Level row -->
+        <div class="level-row">
+          <div class="level-btn">Intermediate · B1 <span style="font-size:12px;margin-left:4px">▼</span></div>
+          <span style="font-size:20px;color:#9E9E9E">🔖</span>
+        </div>
+        <div class="scroll-area">
+          <!-- Progress card -->
+          <div class="progress-card">
+            <div class="progress-card-top">
+              <span class="progress-card-title">B1 Intermediate · Overall Progress</span>
+              <span class="progress-pct">20%</span>
+            </div>
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill" style="width:20%"></div>
+            </div>
+            <span class="progress-sub">1 of 5 chapters completed</span>
+          </div>
+          <!-- Premium banner -->
+          <div class="premium-banner">
+            <div class="p1">7 days - Free</div>
+            <div class="p2">Try Premium For Free</div>
+          </div>
+          <!-- Section label -->
+          <div class="section-label">All Chapters</div>
+          <!-- Chapter cards -->
+          <div class="chapter-card done">
+            <div class="chapter-icon" style="background:#E8F5EE">📖</div>
+            <div class="chapter-info">
+              <div class="chapter-num">Chapter 1</div>
+              <div class="chapter-title">Everyday Conversations</div>
+              <div class="chapter-meta">
+                <span>8 lessons</span><div class="meta-dot"></div><span>45 min</span>
+              </div>
+            </div>
+            <div class="chapter-right">
+              <span class="status-badge badge-done">Done</span>
+              <div class="progress-ring done">✓</div>
+            </div>
+          </div>
+          <div class="chapter-card active">
+            <div class="chapter-icon" style="background:#FFF3E0">⏰</div>
+            <div class="chapter-info">
+              <div class="chapter-num">Chapter 2</div>
+              <div class="chapter-title">Past & Present Tense</div>
+              <div class="chapter-meta">
+                <span>10 lessons</span><div class="meta-dot"></div><span>60 min</span>
+              </div>
+            </div>
+            <div class="chapter-right">
+              <span class="status-badge badge-active">Active</span>
+              <div class="progress-ring" style="border-color:#3DAA6D">3/10</div>
+            </div>
+          </div>
+          <div class="chapter-card locked">
+            <div class="chapter-icon" style="background:#F5F5F5">🔒</div>
+            <div class="chapter-info">
+              <div class="chapter-num">Chapter 3</div>
+              <div class="chapter-title">Expressing Opinions</div>
+              <div class="chapter-meta">
+                <span>9 lessons</span><div class="meta-dot"></div><span>55 min</span>
+              </div>
+            </div>
+            <div class="chapter-right">
+              <span class="status-badge badge-locked">Locked</span>
+              <div class="progress-ring" style="border-color:#F0F0F0;color:#9E9E9E">0/9</div>
+            </div>
+          </div>
+          <div class="chapter-card locked">
+            <div class="chapter-icon" style="background:#F5F5F5">🔒</div>
+            <div class="chapter-info">
+              <div class="chapter-num">Chapter 4</div>
+              <div class="chapter-title">Writing & Emails</div>
+              <div class="chapter-meta">
+                <span>8 lessons</span><div class="meta-dot"></div><span>50 min</span>
+              </div>
+            </div>
+            <div class="chapter-right">
+              <span class="status-badge badge-locked">Locked</span>
+              <div class="progress-ring" style="border-color:#F0F0F0;color:#9E9E9E">0/8</div>
+            </div>
+          </div>
+          <div class="chapter-card locked">
+            <div class="chapter-icon" style="background:#F5F5F5">🔒</div>
+            <div class="chapter-info">
+              <div class="chapter-num">Chapter 5</div>
+              <div class="chapter-title">Debate & Discussion</div>
+              <div class="chapter-meta">
+                <span>11 lessons</span><div class="meta-dot"></div><span>70 min</span>
+              </div>
+            </div>
+            <div class="chapter-right">
+              <span class="status-badge badge-locked">Locked</span>
+              <div class="progress-ring" style="border-color:#F0F0F0;color:#9E9E9E">0/11</div>
+            </div>
+          </div>
+          <div style="height:20px"></div>
+        </div>
+      </div>
+      <!-- Bottom nav -->
+      <div class="bottom-nav">
+        <div class="nav-item active"><span class="nav-icon">📖</span><span class="nav-label" style="color:#3DAA6D">Home</span></div>
+        <div class="nav-item"><span class="nav-icon">🎓</span><span class="nav-label">Proficiency</span></div>
+        <div class="nav-item"><span class="nav-icon">💬</span><span class="nav-label">Chat</span></div>
+        <div class="nav-item"><span class="nav-icon">👤</span><span class="nav-label">Profile</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ SCREEN 2: EXPLORE COURSES ════ -->
+  <div class="screen-group">
+    <h2>Proficiency – Explore Courses</h2>
+    <div class="phone">
+      <div class="status-bar">
+        <span>9:41</span>
+        <div class="status-right"><span>📶</span><span>🔋</span></div>
+      </div>
+      <div class="screen-content">
+        <div class="exp-header">
+          <div class="exp-header-top">
+            <span class="exp-title">Explore Courses</span>
+            <div class="notif-btn">🔔</div>
+          </div>
+          <div class="search-bar">
+            <span>🔍</span>
+            <input class="search-input" placeholder="Search courses, topics..." readonly>
+          </div>
+        </div>
+        <div class="scroll-area">
+          <!-- Featured card -->
+          <div class="featured-card">
+            <div class="featured-badge">⭐ Featured</div>
+            <div class="featured-icon-row">
+              <span class="featured-icon">💼</span>
+              <div class="featured-info">
+                <div class="featured-title">Job Interview Mastery</div>
+                <div class="featured-desc">Master professional English for interviews and land your dream job</div>
+                <div class="featured-meta">
+                  <span>📚 12 lessons</span>
+                  <span>👥 2.4k students</span>
+                </div>
+                <div class="featured-btn">Start Course →</div>
+              </div>
+            </div>
+          </div>
+          <!-- Categories -->
+          <div class="section-label" style="margin-top:14px">Browse by Category</div>
+          <div class="category-grid">
+            <div class="cat-card">
+              <div class="cat-icon-box">💼</div>
+              <div class="cat-info">
+                <div class="cat-title">Interview</div>
+                <div class="cat-count">6 courses</div>
+              </div>
+            </div>
+            <div class="cat-card">
+              <div class="cat-icon-box">🤝</div>
+              <div class="cat-info">
+                <div class="cat-title">Meeting</div>
+                <div class="cat-count">6 courses</div>
+              </div>
+            </div>
+            <div class="cat-card">
+              <div class="cat-icon-box">🎉</div>
+              <div class="cat-info">
+                <div class="cat-title">Holiday</div>
+                <div class="cat-count">5 courses</div>
+              </div>
+            </div>
+            <div class="cat-card">
+              <div class="cat-icon-box">🍽️</div>
+              <div class="cat-info">
+                <div class="cat-title">Restaurant</div>
+                <div class="cat-count">6 courses</div>
+              </div>
+            </div>
+          </div>
+          <!-- Popular -->
+          <div class="section-label" style="margin-top:14px">Popular Courses</div>
+          <div class="pop-card">
+            <div class="pop-icon">🤝</div>
+            <div class="pop-info">
+              <div class="pop-title">Business Meeting Pro</div>
+              <div class="pop-meta">10 lessons · 1.8k students</div>
+            </div>
+            <span class="pop-badge badge-free">Free</span>
+          </div>
+          <div class="pop-card">
+            <div class="pop-icon">🍽️</div>
+            <div class="pop-info">
+              <div class="pop-title">Restaurant English</div>
+              <div class="pop-meta">8 lessons · 3.1k students</div>
+            </div>
+            <span class="pop-badge badge-free">Free</span>
+          </div>
+          <div class="pop-card">
+            <div class="pop-icon">✉️</div>
+            <div class="pop-info">
+              <div class="pop-title">Email Writing Essentials</div>
+              <div class="pop-meta">8 lessons · 2.2k students</div>
+            </div>
+            <span class="pop-badge badge-pro">Pro</span>
+          </div>
+          <div class="pop-card">
+            <div class="pop-icon">🏥</div>
+            <div class="pop-info">
+              <div class="pop-title">Medical Appointments</div>
+              <div class="pop-meta">9 lessons · 1.2k students</div>
+            </div>
+            <span class="pop-badge badge-free">Free</span>
+          </div>
+          <div style="height:16px"></div>
+        </div>
+      </div>
+      <div class="bottom-nav">
+        <div class="nav-item"><span class="nav-icon">📖</span><span class="nav-label">Home</span></div>
+        <div class="nav-item active"><span class="nav-icon">🎓</span><span class="nav-label" style="color:#3DAA6D">Proficiency</span></div>
+        <div class="nav-item"><span class="nav-icon">💬</span><span class="nav-label">Chat</span></div>
+        <div class="nav-item"><span class="nav-icon">👤</span><span class="nav-label">Profile</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ SCREEN 3: COURSE DETAIL ════ -->
+  <div class="screen-group">
+    <h2>Course Detail</h2>
+    <div class="phone">
+      <div class="status-bar" style="background:transparent;position:absolute;top:0;left:0;right:0;z-index:2;color:#fff">
+        <span>9:41</span>
+        <div class="status-right"><span>📶</span><span>🔋</span></div>
+      </div>
+      <div class="screen-content">
+        <div class="scroll-area">
+          <!-- Hero -->
+          <div class="course-hero">
+            <div style="height:30px"></div>
+            <div class="course-hero-back">← Back</div>
+            <div class="course-hero-icon">💼</div>
+            <div class="course-hero-cat">Interview</div>
+            <div class="course-hero-title">Job Interview Mastery</div>
+            <div class="course-hero-desc">Master professional English for interviews and land your dream job</div>
+            <div class="course-stats">
+              <div class="course-stat">📚 12 lessons</div>
+              <div class="course-stat">⏱ 3h 20min</div>
+              <div class="course-stat">👥 2,450</div>
+            </div>
+          </div>
+          <!-- Lessons -->
+          <div class="section-label" style="margin-top:12px">Lessons</div>
+          <div class="lesson-item">
+            <div class="lesson-num done">✓</div>
+            <div class="lesson-info">
+              <div class="lesson-title">Introduction & Greetings</div>
+              <div class="lesson-meta">📖 10 vocab · 💬 Quiz</div>
+            </div>
+            <span class="lesson-right">✅</span>
+          </div>
+          <div class="lesson-item">
+            <div class="lesson-num active" style="font-size:14px">▶</div>
+            <div class="lesson-info">
+              <div class="lesson-title">Talking About Experience</div>
+              <div class="lesson-meta">📖 12 vocab · 💬 Quiz</div>
+            </div>
+            <span class="lesson-right" style="color:#3DAA6D">▶</span>
+          </div>
+          <div class="lesson-item">
+            <div class="lesson-num locked">🔒</div>
+            <div class="lesson-info">
+              <div class="lesson-title" style="color:#9E9E9E">Strengths & Weaknesses</div>
+              <div class="lesson-meta">📖 11 vocab · 💬 Quiz</div>
+            </div>
+            <span class="lesson-right" style="opacity:0.4">🔒</span>
+          </div>
+          <div class="lesson-item">
+            <div class="lesson-num locked">🔒</div>
+            <div class="lesson-info">
+              <div class="lesson-title" style="color:#9E9E9E">Salary Negotiation</div>
+              <div class="lesson-meta">📖 10 vocab · 💬 Quiz</div>
+            </div>
+            <span class="lesson-right" style="opacity:0.4">🔒</span>
+          </div>
+          <div class="lesson-item">
+            <div class="lesson-num locked">🔒</div>
+            <div class="lesson-info">
+              <div class="lesson-title" style="color:#9E9E9E">Closing the Interview</div>
+              <div class="lesson-meta">📖 9 vocab · 💬 Quiz</div>
+            </div>
+            <span class="lesson-right" style="opacity:0.4">🔒</span>
+          </div>
+          <div class="continue-btn">▶ Continue Lesson</div>
+          <div style="height:8px"></div>
+        </div>
+      </div>
+      <div class="bottom-nav">
+        <div class="nav-item"><span class="nav-icon">📖</span><span class="nav-label">Home</span></div>
+        <div class="nav-item active"><span class="nav-icon">🎓</span><span class="nav-label" style="color:#3DAA6D">Proficiency</span></div>
+        <div class="nav-item"><span class="nav-icon">💬</span><span class="nav-label">Chat</span></div>
+        <div class="nav-item"><span class="nav-icon">👤</span><span class="nav-label">Profile</span></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="screen-row">
+
+  <!-- ════ SCREEN 4: CHAT LIST ════ -->
+  <div class="screen-group">
+    <h2>Chat – Messages</h2>
+    <div class="phone">
+      <div class="status-bar">
+        <span>9:41</span>
+        <div class="status-right"><span>📶</span><span>🔋</span></div>
+      </div>
+      <div class="screen-content">
+        <div class="chat-header">
+          <div class="chat-header-top">
+            <span class="chat-title" style="color:#1A1A1A">Messages</span>
+            <div class="header-actions">
+              <div class="header-btn">
+                👥
+                <div class="notif-dot">2</div>
+              </div>
+              <div class="header-btn">✏</div>
+            </div>
+          </div>
+          <div class="search-bar">
+            <span>🔍</span>
+            <input class="search-input" placeholder="Search messages..." readonly>
+          </div>
+        </div>
+        <div class="scroll-area">
+          <!-- Online strip -->
+          <div class="online-strip">
+            <div class="strip-label">Online Now</div>
+            <div class="online-row">
+              <div class="online-item">
+                <div style="position:relative">
+                  <div class="avatar" style="width:46px;height:46px;background:#f97316;font-size:14px">RK</div>
+                  <div class="online-dot"></div>
+                </div>
+                <div class="online-name">Rika K.</div>
+              </div>
+              <div class="online-item">
+                <div style="position:relative">
+                  <div class="avatar" style="width:46px;height:46px;background:#8b5cf6;font-size:14px">AN</div>
+                  <div class="online-dot"></div>
+                </div>
+                <div class="online-name">Andi N.</div>
+              </div>
+              <div class="online-item">
+                <div style="position:relative">
+                  <div class="avatar" style="width:46px;height:46px;background:#0891b2;font-size:14px">SS</div>
+                  <div class="online-dot"></div>
+                </div>
+                <div class="online-name">Siti S.</div>
+              </div>
+              <div class="online-item">
+                <div class="online-add">+</div>
+                <div class="online-name" style="color:#a0c8b0">Add</div>
+              </div>
+            </div>
+          </div>
+          <!-- Recent chats section label -->
+          <div class="section-label">Recent Chats</div>
+          <!-- Chat items -->
+          <div class="chat-item unread">
+            <div style="position:relative">
+              <div class="avatar" style="width:48px;height:48px;background:#f97316;font-size:14px">RK</div>
+              <div class="online-dot"></div>
+            </div>
+            <div class="chat-info">
+              <div class="chat-name">Rika Kusuma</div>
+              <div class="chat-preview unread-preview">Did you finish the interview...</div>
+            </div>
+            <div class="chat-right">
+              <span class="chat-time">09:38</span>
+              <div class="unread-badge">3</div>
+            </div>
+          </div>
+          <div class="chat-item unread">
+            <div class="avatar" style="width:48px;height:48px;background:#8b5cf6;font-size:14px">AN</div>
+            <div class="chat-info">
+              <div class="chat-name">Andi Nugroho</div>
+              <div class="chat-preview unread-preview">Shared a course with you 📚</div>
+            </div>
+            <div class="chat-right">
+              <span class="chat-time">09:21</span>
+              <div class="unread-badge">1</div>
+            </div>
+          </div>
+          <div class="chat-item">
+            <div class="avatar" style="width:48px;height:48px;background:#3DAA6D;font-size:14px">DW</div>
+            <div class="chat-info">
+              <div class="chat-name">Dwi Wulandari</div>
+              <div class="chat-preview">Haha yes I got 90! 🎉</div>
+            </div>
+            <div class="chat-right">
+              <span class="chat-time">Kemarin</span>
+              <span style="font-size:12px;color:#F0F0F0">🔔</span>
+            </div>
+          </div>
+          <div class="chat-item">
+            <div style="position:relative">
+              <div class="avatar" style="width:48px;height:48px;background:#0891b2;font-size:14px">SS</div>
+              <div class="online-dot"></div>
+            </div>
+            <div class="chat-info">
+              <div class="chat-name">Siti Safira</div>
+              <div class="chat-preview">You: let's practice togeth...</div>
+            </div>
+            <div class="chat-right">
+              <span class="chat-time">Kemarin</span>
+            </div>
+          </div>
+          <div class="chat-item">
+            <div class="avatar" style="width:48px;height:48px;background:#e11d48;font-size:14px">BR</div>
+            <div class="chat-info">
+              <div class="chat-name">Bowo Raharjo</div>
+              <div class="chat-preview">Thanks for the tip bro!</div>
+            </div>
+            <div class="chat-right">
+              <span class="chat-time">Senin</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="bottom-nav">
+        <div class="nav-item"><span class="nav-icon">📖</span><span class="nav-label">Home</span></div>
+        <div class="nav-item"><span class="nav-icon">🎓</span><span class="nav-label">Proficiency</span></div>
+        <div class="nav-item active"><span class="nav-icon">💬</span><span class="nav-label" style="color:#3DAA6D">Chat</span></div>
+        <div class="nav-item"><span class="nav-icon">👤</span><span class="nav-label">Profile</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ SCREEN 5: CONVERSATION ════ -->
+  <div class="screen-group">
+    <h2>Conversation</h2>
+    <div class="phone">
+      <div class="status-bar">
+        <span>9:41</span>
+        <div class="status-right"><span>📶</span><span>🔋</span></div>
+      </div>
+      <div class="screen-content">
+        <div class="conv-header">
+          <span class="conv-back">←</span>
+          <div style="position:relative;margin-right:10px">
+            <div class="avatar" style="width:40px;height:40px;background:#f97316;font-size:12px">RK</div>
+            <div class="online-dot" style="width:10px;height:10px;border-radius:5px;bottom:1px;right:1px"></div>
+          </div>
+          <div class="conv-header-info">
+            <div class="conv-header-name">Rika Kusuma</div>
+            <div class="conv-header-sub">● Online</div>
+          </div>
+          <div class="conv-actions">
+            <span>📞</span>
+            <span>⋯</span>
+          </div>
+        </div>
+        <div class="messages-area" style="flex:1">
+          <div class="date-sep">Today, 09:15</div>
+          <div class="msg-row them">
+            <div class="bubble them">
+              Hi! Are you studying for the interview course? 😊
+              <div class="bubble-time">09:15</div>
+            </div>
+          </div>
+          <div class="msg-row me">
+            <div class="bubble me">
+              Yes! I just finished lesson 1. It's really helpful!
+              <div class="bubble-time">09:17</div>
+            </div>
+          </div>
+          <div class="msg-row them">
+            <div class="bubble them">
+              Same here! Did you do the quiz yet?
+              <div class="bubble-time">09:18</div>
+            </div>
+          </div>
+          <div class="msg-row me">
+            <div class="bubble me">
+              Not yet, doing it now 😅
+              <div class="bubble-time">09:20</div>
+            </div>
+          </div>
+          <div class="msg-row them">
+            <div class="bubble them">
+              Did you finish the interview practice quiz?
+              <div class="bubble-time">09:38</div>
+            </div>
+          </div>
+          <!-- Course share bubble -->
+          <div class="msg-row me">
+            <div class="bubble me" style="padding:0;overflow:hidden;border-radius:16px;max-width:75%">
+              <div style="background:rgba(255,255,255,0.15);padding:10px 12px;display:flex;gap:10px;align-items:center">
+                <span style="font-size:28px">💼</span>
+                <div>
+                  <div style="font-size:12px;font-weight:700;margin-bottom:2px">Job Interview Mastery</div>
+                  <div style="font-size:10px;opacity:0.85">12 lessons · Free</div>
+                </div>
+              </div>
+              <div style="padding:8px 12px;font-size:13px">Check out this course! 🎯</div>
+              <div style="padding:0 12px 8px;font-size:10px;opacity:0.7;text-align:right">09:39</div>
+            </div>
+          </div>
+        </div>
+        <div class="msg-input-bar">
+          <span style="font-size:22px">📎</span>
+          <input class="msg-input" placeholder="Type a message..." readonly>
+          <div class="msg-send-btn">➤</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ SCREEN 6: ADD FRIEND ════ -->
+  <div class="screen-group">
+    <h2>Add Friend</h2>
+    <div class="phone">
+      <div class="status-bar">
+        <span>9:41</span>
+        <div class="status-right"><span>📶</span><span>🔋</span></div>
+      </div>
+      <div class="screen-content">
+        <div class="add-friend-header">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+            <span style="font-size:22px">←</span>
+            <span class="add-friend-title" style="margin-bottom:0">Add Friend</span>
+          </div>
+          <div class="search-bar">
+            <span>🔍</span>
+            <input class="search-input" placeholder="Search by @username..." value="aldhitanca3" readonly>
+            <span style="color:#5a9e75;font-size:13px">✕</span>
+          </div>
+        </div>
+        <div class="scroll-area">
+          <!-- Search result -->
+          <div class="friend-result-card">
+            <div class="avatar" style="width:52px;height:52px;background:#f97316;font-size:16px">AL</div>
+            <div class="friend-result-info">
+              <div class="friend-result-name">Aldhi Tanca</div>
+              <div class="friend-result-user">@aldhitanca3 · B2</div>
+            </div>
+            <div class="sent-btn">✓ Sent</div>
+          </div>
+
+          <!-- Suggestions -->
+          <div style="height:16px"></div>
+          <div class="suggestions-title">People You May Know</div>
+          <div class="suggestion-item">
+            <div class="avatar" style="width:46px;height:46px;background:#8b5cf6;font-size:14px">RK</div>
+            <div class="suggestion-info">
+              <div class="suggestion-name">Rika Kusuma</div>
+              <div class="suggestion-level">@rika.k · Intermediate</div>
+            </div>
+            <div class="follow-btn">+ Add</div>
+          </div>
+          <div class="suggestion-item">
+            <div class="avatar" style="width:46px;height:46px;background:#0891b2;font-size:14px">DW</div>
+            <div class="suggestion-info">
+              <div class="suggestion-name">Dwi Wulandari</div>
+              <div class="suggestion-level">@dwi.w · Upper Intermediate</div>
+            </div>
+            <div class="follow-btn">+ Add</div>
+          </div>
+          <div class="suggestion-item">
+            <div class="avatar" style="width:46px;height:46px;background:#3DAA6D;font-size:14px">AN</div>
+            <div class="suggestion-info">
+              <div class="suggestion-name">Andi Nugroho</div>
+              <div class="suggestion-level">@andi.n · B1</div>
+            </div>
+            <div class="follow-btn">+ Add</div>
+          </div>
+          <div class="suggestion-item">
+            <div class="avatar" style="width:46px;height:46px;background:#e11d48;font-size:14px">SS</div>
+            <div class="suggestion-info">
+              <div class="suggestion-name">Siti Safira</div>
+              <div class="suggestion-level">@siti.s · Advanced</div>
+            </div>
+            <div class="follow-btn">+ Add</div>
+          </div>
+        </div>
+      </div>
+      <div class="bottom-nav">
+        <div class="nav-item"><span class="nav-icon">📖</span><span class="nav-label">Home</span></div>
+        <div class="nav-item"><span class="nav-icon">🎓</span><span class="nav-label">Proficiency</span></div>
+        <div class="nav-item active"><span class="nav-icon">💬</span><span class="nav-label" style="color:#3DAA6D">Chat</span></div>
+        <div class="nav-item"><span class="nav-icon">👤</span><span class="nav-label">Profile</span></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="screen-row">
+
+  <!-- ════ SCREEN 7: PROFILE ════ -->
+  <div class="screen-group">
+    <h2>Profile</h2>
+    <div class="phone">
+      <div class="status-bar">
+        <span>9:41</span>
+        <div class="status-right"><span>📶</span><span>🔋</span></div>
+      </div>
+      <div class="screen-content">
+        <div class="scroll-area">
+          <div class="profile-container">
+            <div class="profile-avatar">A</div>
+            <div class="profile-username">aldhitanca</div>
+            <div class="profile-email">aldhitanca@email.com</div>
+            <div class="stats-row">
+              <div class="stat-block">
+                <div class="stat-num">0</div>
+                <div class="stat-lbl">Streak</div>
+              </div>
+              <div class="stat-divider"></div>
+              <div class="stat-block">
+                <div class="stat-num">0</div>
+                <div class="stat-lbl">XP</div>
+              </div>
+              <div class="stat-divider"></div>
+              <div class="stat-block">
+                <div class="stat-num">0</div>
+                <div class="stat-lbl">Lessons</div>
+              </div>
+            </div>
+            <div class="info-section">
+              <div class="info-row">
+                <span class="info-label">Language</span>
+                <span class="info-value">English</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Level</span>
+                <span class="info-value">B1</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Daily goal</span>
+                <span class="info-value">15 min/day</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Premium</span>
+                <span class="info-value">❌ Free plan</span>
+              </div>
+            </div>
+            <div class="logout-btn">Log out</div>
+          </div>
+        </div>
+      </div>
+      <div class="bottom-nav">
+        <div class="nav-item"><span class="nav-icon">📖</span><span class="nav-label">Home</span></div>
+        <div class="nav-item"><span class="nav-icon">🎓</span><span class="nav-label">Proficiency</span></div>
+        <div class="nav-item"><span class="nav-icon">💬</span><span class="nav-label">Chat</span></div>
+        <div class="nav-item active"><span class="nav-icon">👤</span><span class="nav-label" style="color:#3DAA6D">Profile</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ SCREEN 8: FRIEND PROFILE ════ -->
+  <div class="screen-group">
+    <h2>Friend Profile</h2>
+    <div class="phone">
+      <div class="status-bar" style="background:transparent;position:absolute;top:0;left:0;right:0;z-index:2;color:#fff">
+        <span>9:41</span>
+        <div class="status-right"><span>📶</span><span>🔋</span></div>
+      </div>
+      <div class="screen-content">
+        <div class="scroll-area">
+          <!-- Hero -->
+          <div style="background:linear-gradient(160deg,#2E8A57,#3DAA6D);padding:52px 20px 28px;color:#fff;text-align:center">
+            <div style="font-size:22px;text-align:left;margin-bottom:16px;opacity:0.9">← Back</div>
+            <div class="avatar" style="width:80px;height:80px;background:rgba(255,255,255,0.2);font-size:28px;margin:0 auto 12px">RK</div>
+            <div style="font-size:22px;font-weight:800;margin-bottom:3px">Rika Kusuma</div>
+            <div style="font-size:13px;opacity:0.85;margin-bottom:14px">@rika.k · Intermediate B1</div>
+            <div style="display:flex;justify-content:center;gap:16px;margin-bottom:18px">
+              <div style="text-align:center">
+                <div style="font-size:20px;font-weight:700">24</div>
+                <div style="font-size:11px;opacity:0.8">Lessons</div>
+              </div>
+              <div style="width:1px;background:rgba(255,255,255,0.3)"></div>
+              <div style="text-align:center">
+                <div style="font-size:20px;font-weight:700">7</div>
+                <div style="font-size:11px;opacity:0.8">Streak</div>
+              </div>
+              <div style="width:1px;background:rgba(255,255,255,0.3)"></div>
+              <div style="text-align:center">
+                <div style="font-size:20px;font-weight:700">1,240</div>
+                <div style="font-size:11px;opacity:0.8">XP</div>
+              </div>
+            </div>
+            <div style="display:flex;gap:10px;justify-content:center">
+              <div style="background:#fff;color:#2E8A57;border-radius:13px;padding:11px 24px;font-size:14px;font-weight:700">💬 Message</div>
+              <div style="background:rgba(255,255,255,0.2);color:#fff;border-radius:13px;padding:11px 24px;font-size:14px;font-weight:700">🎯 Challenge</div>
+            </div>
+          </div>
+          <!-- Achievements -->
+          <div class="section-label" style="margin-top:14px">Achievements</div>
+          <div style="display:flex;flex-wrap:wrap;gap:10px;padding:0 16px 16px">
+            <div style="background:#E8F5EE;border-radius:12px;padding:10px 14px;display:flex;align-items:center;gap:8px">
+              <span style="font-size:22px">🔥</span>
+              <div>
+                <div style="font-size:12px;font-weight:700;color:#1A1A1A">7-Day Streak</div>
+                <div style="font-size:10px;color:#9E9E9E">Consistent learner</div>
+              </div>
+            </div>
+            <div style="background:#E8F5EE;border-radius:12px;padding:10px 14px;display:flex;align-items:center;gap:8px">
+              <span style="font-size:22px">📚</span>
+              <div>
+                <div style="font-size:12px;font-weight:700;color:#1A1A1A">20+ Lessons</div>
+                <div style="font-size:10px;color:#9E9E9E">Dedicated student</div>
+              </div>
+            </div>
+            <div style="background:#E8F5EE;border-radius:12px;padding:10px 14px;display:flex;align-items:center;gap:8px">
+              <span style="font-size:22px">⭐</span>
+              <div>
+                <div style="font-size:12px;font-weight:700;color:#1A1A1A">1000 XP</div>
+                <div style="font-size:10px;color:#9E9E9E">XP Master</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="bottom-nav">
+        <div class="nav-item"><span class="nav-icon">📖</span><span class="nav-label">Home</span></div>
+        <div class="nav-item"><span class="nav-icon">🎓</span><span class="nav-label">Proficiency</span></div>
+        <div class="nav-item active"><span class="nav-icon">💬</span><span class="nav-label" style="color:#3DAA6D">Chat</span></div>
+        <div class="nav-item"><span class="nav-icon">👤</span><span class="nav-label">Profile</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ SCREEN 9: FRIEND REQUESTS ════ -->
+  <div class="screen-group">
+    <h2>Friend Requests</h2>
+    <div class="phone">
+      <div class="status-bar">
+        <span>9:41</span>
+        <div class="status-right"><span>📶</span><span>🔋</span></div>
+      </div>
+      <div class="screen-content">
+        <div class="chat-header">
+          <div class="chat-header-top">
+            <span class="chat-title" style="color:#1A1A1A">Messages</span>
+            <div class="header-actions">
+              <div class="header-btn">👥<div class="notif-dot">2</div></div>
+              <div class="header-btn">✏</div>
+            </div>
+          </div>
+          <div class="search-bar">
+            <span>🔍</span>
+            <input class="search-input" placeholder="Search messages..." readonly>
+          </div>
+        </div>
+        <div class="scroll-area">
+          <!-- Friend requests section -->
+          <div style="padding:14px 16px 4px">
+            <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;color:#2E8A57;margin-bottom:10px">
+              Friend Requests (2)
+            </div>
+            <!-- Request card 1 -->
+            <div style="display:flex;align-items:center;border:1.5px solid #b5e8ca;border-radius:13px;padding:11px 13px;gap:10px;margin-bottom:9px;background:#f7fef9">
+              <div class="avatar" style="width:44px;height:44px;background:#f97316;font-size:14px;flex-shrink:0">RK</div>
+              <div style="flex:1">
+                <div style="font-size:13px;font-weight:700;color:#1A1A1A;margin-bottom:2px">Rika Kusuma</div>
+                <div style="font-size:10.5px;font-weight:500;color:#3DAA6D">@rika.k · Intermediate</div>
+              </div>
+              <div style="display:flex;gap:7px;flex-shrink:0">
+                <div style="background:#3DAA6D;border-radius:9px;padding:7px 12px;color:#fff;font-size:11.5px;font-weight:700">✓ Accept</div>
+                <div style="border:1.5px solid #F0F0F0;border-radius:9px;padding:7px 10px;font-size:12px;font-weight:700;color:#9E9E9E">✕</div>
+              </div>
+            </div>
+            <!-- Request card 2 -->
+            <div style="display:flex;align-items:center;border:1.5px solid #b5e8ca;border-radius:13px;padding:11px 13px;gap:10px;margin-bottom:9px;background:#f7fef9">
+              <div class="avatar" style="width:44px;height:44px;background:#8b5cf6;font-size:14px;flex-shrink:0">AN</div>
+              <div style="flex:1">
+                <div style="font-size:13px;font-weight:700;color:#1A1A1A;margin-bottom:2px">Andi Nugroho</div>
+                <div style="font-size:10.5px;font-weight:500;color:#3DAA6D">@andi.n · B1</div>
+              </div>
+              <div style="display:flex;gap:7px;flex-shrink:0">
+                <div style="background:#3DAA6D;border-radius:9px;padding:7px 12px;color:#fff;font-size:11.5px;font-weight:700">✓ Accept</div>
+                <div style="border:1.5px solid #F0F0F0;border-radius:9px;padding:7px 10px;font-size:12px;font-weight:700;color:#9E9E9E">✕</div>
+              </div>
+            </div>
+          </div>
+          <!-- Chat items below -->
+          <div class="section-label">Recent Chats</div>
+          <div class="chat-item">
+            <div class="avatar" style="width:48px;height:48px;background:#0891b2;font-size:14px">SS</div>
+            <div class="chat-info">
+              <div class="chat-name">Siti Safira</div>
+              <div class="chat-preview">You: let's practice together!</div>
+            </div>
+            <div class="chat-right">
+              <span class="chat-time">Kemarin</span>
+            </div>
+          </div>
+          <div class="chat-item">
+            <div class="avatar" style="width:48px;height:48px;background:#3DAA6D;font-size:14px">DW</div>
+            <div class="chat-info">
+              <div class="chat-name">Dwi Wulandari</div>
+              <div class="chat-preview">Great job on that quiz! 🎉</div>
+            </div>
+            <div class="chat-right">
+              <span class="chat-time">Senin</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="bottom-nav">
+        <div class="nav-item"><span class="nav-icon">📖</span><span class="nav-label">Home</span></div>
+        <div class="nav-item"><span class="nav-icon">🎓</span><span class="nav-label">Proficiency</span></div>
+        <div class="nav-item active"><span class="nav-icon">💬</span><span class="nav-label" style="color:#3DAA6D">Chat</span></div>
+        <div class="nav-item"><span class="nav-icon">👤</span><span class="nav-label">Profile</span></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div style="text-align:center;padding:20px;color:#9E9E9E;font-size:13px">
+  <strong>Cara import ke Figma:</strong>
+  1. Buka file ini di browser &nbsp;|&nbsp;
+  2. Install plugin <strong>html.to.design</strong> di Figma (gratis) &nbsp;|&nbsp;
+  3. Di plugin, klik "Import from URL" atau buka dari browser extension &nbsp;|&nbsp;
+  4. Setiap phone frame akan jadi satu Figma frame
+</div>
+
+</body>
+</html>
