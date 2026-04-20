@@ -21,6 +21,7 @@ import {
   getFriends,
   PublicUserProfile,
 } from '../../../firebase/friendsService';
+import AppIcon from '../../../components/AppIcon';
 
 type Props = {
   navigation: NativeStackNavigationProp<ChatStackParamList, 'AddFriend'>;
@@ -134,7 +135,7 @@ const AddFriendScreen = ({ navigation }: Props) => {
 
         {/* Search Bar */}
         <View style={[styles.searchBar, { borderColor: Colors.primary, backgroundColor: Colors.primaryLight }]}>
-          <Text style={{ fontSize: 15, color: Colors.primary }}>🔍</Text>
+          <AppIcon name="search" size={18} />
           <TextInput
             style={[styles.searchInput, { color: colors.text }]}
             placeholder="Search by username..."
@@ -153,7 +154,7 @@ const AddFriendScreen = ({ navigation }: Props) => {
                 setSearchResult(null);
                 setSearchError('');
               }}>
-              <Text style={{ fontSize: 13, color: '#a0c8b0' }}>✕</Text>
+              <AppIcon name="close" size={16} />
             </TouchableOpacity>
           )}
         </View>
@@ -172,7 +173,7 @@ const AddFriendScreen = ({ navigation }: Props) => {
         {/* ── Search Error ─────────────────────────────────────── */}
         {!searching && searchError !== '' && (
           <View style={[styles.errorBox, { borderColor: colors.border }]}>
-            <Text style={{ fontSize: 24, marginBottom: 8 }}>🔍</Text>
+            <AppIcon name="search" size={28} style={{ marginBottom: 8 }} />
             <Text style={[styles.errorText, { color: colors.textSub }]}>{searchError}</Text>
           </View>
         )}
@@ -311,7 +312,7 @@ const AddFriendScreen = ({ navigation }: Props) => {
         {/* ── Intro hint when no search yet ───────────────────── */}
         {!searching && !searchResult && searchError === '' && suggestions.length === 0 && (
           <View style={styles.hintBox}>
-            <Text style={{ fontSize: 42, marginBottom: 14 }}>🔎</Text>
+            <AppIcon name="search" size={44} style={{ marginBottom: 14 }} />
             <Text style={[styles.hintTitle, { color: colors.text }]}>Find Friends</Text>
             <Text style={[styles.hintSub, { color: colors.textSub }]}>
               Search by username (e.g. @rika.kusuma) to find and connect with fellow learners.

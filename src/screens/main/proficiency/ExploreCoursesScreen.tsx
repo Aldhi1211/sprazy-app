@@ -19,6 +19,7 @@ import {
   getPopularCourses,
   ProficiencyCourse,
 } from '../../../data/proficiencyData';
+import AppIcon from '../../../components/AppIcon';
 
 type Props = {
   navigation: NativeStackNavigationProp<ProficiencyStackParamList, 'ExploreCourses'>;
@@ -49,11 +50,11 @@ const ExploreCoursesScreen = ({ navigation }: Props) => {
         <View style={styles.headerTop}>
           <Text style={[styles.headerTitle, { color: colors.text }]}>Explore Courses</Text>
           <View style={[styles.notifBtn, { backgroundColor: colors.bg === '#121212' ? '#2C2C2C' : '#edfaf2' }]}>
-            <Text style={{ fontSize: 18 }}>🔔</Text>
+            <AppIcon name="notification" size={22} />
           </View>
         </View>
         <View style={[styles.searchBar, { backgroundColor: Colors.primaryLight, borderColor: '#c8edda' }]}>
-          <Text style={styles.searchIcon}>🔍</Text>
+          <AppIcon name="search" size={16} />
           <TextInput
             style={[styles.searchInput, { color: colors.text }]}
             placeholder="Search courses, topics..."
@@ -63,7 +64,7 @@ const ExploreCoursesScreen = ({ navigation }: Props) => {
           />
           {searchQuery.length > 0 && (
             <TouchableOpacity onPress={() => setSearchQuery('')}>
-              <Text style={{ fontSize: 14, color: '#5a9e75' }}>✕</Text>
+              <AppIcon name="close" size={16} />
             </TouchableOpacity>
           )}
         </View>

@@ -2,7 +2,8 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Text, View, ActivityIndicator } from 'react-native';
+import { Text, View, ActivityIndicator, Platform } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import AppIcon from '../components/AppIcon';
 
 import { useAuth } from '../context/AuthContext';
@@ -158,6 +159,10 @@ const TabIcon = ({ label, focused }: { label: string; focused: boolean }) => (
 // ── Main Tab Navigator ────────────────────────────────────────────────────────
 const MainNavigator = () => {
   const { colors } = useTheme();
+  const insets = useSafeAreaInsets();
+  // Extra bottom space for Android gesture nav bar
+  const bottomPad = Platform.OS === 'android' ? Math.max(insets.bottom, 8) : insets.bottom;
+
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -167,9 +172,9 @@ const MainNavigator = () => {
         tabBarStyle: {
           backgroundColor: colors.bg,
           borderTopColor: colors.border,
-          height: 72,
-          paddingBottom: 0,
-          paddingTop: 0,
+          height: 60 + bottomPad,
+          paddingBottom: bottomPad,
+          paddingTop: 6,
           elevation: 8,
           shadowColor: '#000',
           shadowOffset: { width: 0, height: -2 },
@@ -180,6 +185,7 @@ const MainNavigator = () => {
         tabBarInactiveTintColor: colors.textSub,
         tabBarItemStyle: {
           paddingVertical: 0,
+          height: 54,
         },
       })}>
       <Tab.Screen name="Home" component={HomeNavigator} />

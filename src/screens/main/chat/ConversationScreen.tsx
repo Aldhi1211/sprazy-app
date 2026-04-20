@@ -31,6 +31,7 @@ import {
   PublicUserProfile,
 } from '../../../firebase/friendsService';
 import { Timestamp } from 'firebase/firestore';
+import AppIcon from '../../../components/AppIcon';
 
 type Props = {
   navigation: NativeStackNavigationProp<ChatStackParamList, 'Conversation'>;
@@ -221,7 +222,7 @@ const ConversationScreen = ({ navigation, route }: Props) => {
           <TouchableOpacity
             style={[styles.actionBtn, { backgroundColor: Colors.primaryLight }]}
             onPress={() => navigation.navigate('FriendProfile', { friendId })}>
-            <Text style={{ fontSize: 15 }}>👤</Text>
+            <AppIcon name="profile" size={20} />
           </TouchableOpacity>
           <TouchableOpacity
             style={[styles.actionBtn, { backgroundColor: Colors.primaryLight }]}
@@ -231,7 +232,7 @@ const ConversationScreen = ({ navigation, route }: Props) => {
                 { text: 'Cancel', style: 'cancel' },
               ])
             }>
-            <Text style={{ fontSize: 15 }}>⋯</Text>
+            <AppIcon name="more" size={20} />
           </TouchableOpacity>
         </View>
       </View>
@@ -259,7 +260,7 @@ const ConversationScreen = ({ navigation, route }: Props) => {
       {/* ── Input Bar ─────────────────────────────────────────── */}
       <View style={[styles.inputBar, { backgroundColor: colors.bg, borderTopColor: colors.border }]}>
         <TouchableOpacity style={[styles.attachBtn, { backgroundColor: Colors.primaryLight }]}>
-          <Text style={{ fontSize: 16 }}>📎</Text>
+          <AppIcon name="attach" size={20} />
         </TouchableOpacity>
 
         <TextInput
@@ -276,7 +277,7 @@ const ConversationScreen = ({ navigation, route }: Props) => {
         />
 
         <TouchableOpacity style={[styles.emojiBtn, { backgroundColor: Colors.primaryLight }]}>
-          <Text style={{ fontSize: 16 }}>😊</Text>
+          <AppIcon name="emoji" size={20} />
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -284,7 +285,7 @@ const ConversationScreen = ({ navigation, route }: Props) => {
           onPress={handleSend}
           disabled={!inputText.trim() || sending}
           activeOpacity={0.85}>
-          <Text style={{ fontSize: 16 }}>➤</Text>
+          <AppIcon name="send" size={18} />
         </TouchableOpacity>
       </View>
     </KeyboardAvoidingView>

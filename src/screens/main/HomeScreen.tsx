@@ -8,6 +8,7 @@ import {
   StatusBar,
   Image,
 } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Colors } from '../../theme/colors';
 import { useTheme } from '../../context/ThemeContext';
@@ -138,6 +139,7 @@ const HomeScreen = ({ navigation }: Props) => {
   const { colors, isDark } = useTheme();
   const { profile } = useAuth();
   const { getChapterProgress, isChapterUnlocked } = useProgress();
+  const insets = useSafeAreaInsets();
 
   const level = profile?.languageLevel || 'B1';
   const chapters = getCurriculumByLevel(level);
@@ -164,7 +166,7 @@ const HomeScreen = ({ navigation }: Props) => {
       <StatusBar barStyle={isDark ? 'light-content' : 'dark-content'} />
 
       {/* ── Top Bar ─────────────────────────────────────────────── */}
-      <View style={[styles.topBar, { backgroundColor: colors.bg }]}>
+      <View style={[styles.topBar, { backgroundColor: colors.bg, paddingTop: insets.top + 8 }]}>
         <TouchableOpacity style={styles.languageBtn}>
           <Image
             source={require('../../../assets/images/logo_icon.png')}

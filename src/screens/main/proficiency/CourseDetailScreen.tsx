@@ -13,6 +13,7 @@ import { Colors } from '../../../theme/colors';
 import { useTheme } from '../../../context/ThemeContext';
 import { ProficiencyStackParamList } from '../../../navigation/types';
 import { getCourseById, PROFICIENCY_CATEGORIES } from '../../../data/proficiencyData';
+import AppIcon from '../../../components/AppIcon';
 
 type Props = {
   navigation: NativeStackNavigationProp<ProficiencyStackParamList, 'CourseDetail'>;
@@ -181,13 +182,12 @@ const CourseDetailScreen = ({ navigation, route }: Props) => {
                     ? { backgroundColor: '#f0f0f0' }
                     : { backgroundColor: Colors.primaryLight },
                 ]}>
-                <Text
-                  style={[
-                    styles.lessonNumText,
-                    { color: isDone || isActive ? '#fff' : isLocked ? '#aaa' : Colors.primaryDark },
-                  ]}>
-                  {isDone ? '✓' : isLocked ? '🔒' : String(i + 1)}
-                </Text>
+                {isDone
+                  ? <AppIcon name="check_circle" size={18} />
+                  : isLocked
+                  ? <AppIcon name="lock" size={18} />
+                  : <Text style={[styles.lessonNumText, { color: Colors.primaryDark }]}>{String(i + 1)}</Text>
+                }
               </View>
 
               {/* Info */}
@@ -201,9 +201,10 @@ const CourseDetailScreen = ({ navigation, route }: Props) => {
               </View>
 
               {/* Arrow */}
-              <Text style={[styles.lessonArrow, { color: isActive ? Colors.primary : colors.border }]}>
-                {isActive ? '▶' : '›'}
-              </Text>
+              {isActive
+                ? <AppIcon name="play" size={20} />
+                : <Text style={[styles.lessonArrow, { color: colors.border }]}>›</Text>
+              }
             </TouchableOpacity>
           );
         })}
